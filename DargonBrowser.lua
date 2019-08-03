@@ -9,7 +9,7 @@ centered = false
 web = io.read()
 
 local function get(repoFile,saveTo)
-local download = http.get("https://raw.github.com/ajh123/DragonBrowser/web/repoFile") --This will make 'download' hold the contents of the file.
+local download = http.get("https://raw.github.com/ajh123/DragonBrowser/web/"..repoFile) --This will make 'download' hold the contents of the file.
 if download then --checks if download returned true or false
    local handle = download.readAll() --Reads everything in download
    download.close() --remember to close the download!

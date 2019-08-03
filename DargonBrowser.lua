@@ -25,7 +25,7 @@ end --close the function
 
 get(web, "web.html")
 
-hFile = fs.open(web, "r")
+hFile = fs.open("web.html", "r")
 -- Read all file
 while true do
         h = hFile.readLine()

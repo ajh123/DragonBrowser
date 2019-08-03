@@ -6,6 +6,7 @@ page = {}
 count = 1
 centered = false
 
+print("Enter website index file >")
 web = io.read()
 
 local function get(repoFile,saveTo)

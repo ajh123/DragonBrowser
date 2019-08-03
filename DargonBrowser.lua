@@ -7,7 +7,7 @@ count = 1
 centered = false
 
 print("Enter website index file >")
-web = io.read()
+site = io.read()
 
 local function get(repoFile,saveTo)
 local download = http.get("https://raw.github.com/ajh123/DragonBrowser/master/web/"..repoFile) --This will make 'download' hold the contents of the file.
@@ -24,7 +24,7 @@ if download then --checks if download returned true or false
   end --end the if
 end --close the function
 
-get(web, "web.html")
+get(site, "web.html")
 
 hFile = fs.open("web.html", "r")
 -- Read all file
@@ -102,3 +102,4 @@ for k, v in pairs(page) do
         print(v)
     end
 end
+shell.run("rm "..site)

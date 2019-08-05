@@ -4,6 +4,8 @@ function job()
       --do stuff
 end
 function splash()
+     term.setBackgroundColour(colours.blue)
+     term.clear()
      print([[
 ________                                           
 \______ \____________    ____   ____   ____        
@@ -20,6 +22,7 @@ end
 --parrallel.waitForAll(job, splash)
 splash()
 sleep(2)
+term.setBackgroundColour(colours.black)
 term.clear()
 term.setCursorPos(1,1)
 
@@ -30,8 +33,14 @@ code = ""
 page = {}
 count = 1
 centered = false
-
-print("Enter website index file >")
+hFile = ""
+print([[+------------------------------------------------+
+|
+|
++------------------------------------------------+]])
+term.setCursorPos(2,2)
+print("Enter remote index file or local file >")
+term.setCursorPos(2,3)
 site = io.read()
 
 local function get(repoFile,saveTo)
@@ -51,7 +60,11 @@ end --close the function
 
 get(site, "web.html")
 
-hFile = fs.open("web.html", "r")
+if fs.exists("web.html") then
+	hFile = fs.open("web.html", "r")
+else
+ 	hFile = fs.open(site, "r")
+end
 -- Read all file
 while true do
         h = hFile.readLine()
@@ -110,6 +123,7 @@ term.clear()
 term.setCursorPos(1,1)
 web = string.format([[+------------------------------------------------+
 |Page: %s
+|
 +------------------------------------------------+]], title)
 print(web)
 loadstring(code)()
@@ -127,4 +141,4 @@ for k, v in pairs(page) do
         print(v)
     end
 end
-shell.run("rm "..site)
+shell.run("rm ", "web.html")

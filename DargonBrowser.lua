@@ -34,16 +34,19 @@ page = {}
 count = 1
 centered = false
 hFile = ""
-print([[+------------------------------------------------+
+term.setBackgroundColour(colours.grey)
+print([[+-------------------------------------------------+
 |
 |
-+------------------------------------------------+]])
++-------------------------------------------------+]])
 term.setCursorPos(2,2)
 print("Enter remote index file or local file >")
 term.setCursorPos(2,3)
 site = io.read()
+term.setBackgroundColour(colours.black)
 
 local function get(repoFile,saveTo)
+
 local download = http.get("https://raw.github.com/ajh123/DragonBrowser/master/web/"..repoFile) --This will make 'download' hold the contents of the file.
 if download then --checks if download returned true or false
    local handle = download.readAll() --Reads everything in download
@@ -86,7 +89,7 @@ for k, v in pairs(web_page) do
         p = string.find(v, "p>")
         hed = string.find(v, "h1>")
         t = string.find(v, "title>")
-        s = string.find(v, "script>")
+        s = string.find(v, "LUAscr>")
         cen = string.find(v, "<center>")
         end_cen = string.find(v, "</center>")
                
@@ -98,7 +101,8 @@ for k, v in pairs(web_page) do
                 sc = string.gsub(v, "<", "")
                 scr = string.gsub(sc, ">", "")
                 script = string.sub(scr, 7, -8)
-                scriptFile = fs.open(script, "r")
+                get(site..script, "script.LUAscr")
+                scriptFile = fs.open("script.LUAscr", "r")
                 if scriptFile then
                 	code = scriptFile.readAll() 
                 	scriptFile.close()
@@ -121,11 +125,13 @@ for k, v in pairs(web_page) do
 end
 term.clear()
 term.setCursorPos(1,1)
-web = string.format([[+------------------------------------------------+
+term.setBackgroundColour(colours.grey)
+web = string.format([[+-------------------------------------------------+
 |Page: %s
 |
-+------------------------------------------------+]], title)
++-------------------------------------------------+]], title)
 print(web)
+term.setBackgroundColour(colours.black)
 loadstring(code)()
 for k, v in pairs(page) do
     if v == "center" then
